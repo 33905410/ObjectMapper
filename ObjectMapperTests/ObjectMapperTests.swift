@@ -490,6 +490,18 @@ class ObjectMapperTests: XCTestCase {
 		XCTAssertEqual(genericItems?[1].value, "value1")
 	}
 	
+	func testWithGenericArray() {
+		let JSONString = "{\"genericItems\":[{\"value\":\"value0\"}, {\"value\":\"value1\"}]}"
+
+		let parsedObject = Mapper<WithGenericArray<ConcreteItem>>().map(JSONString)
+
+		let genericItems = parsedObject?.genericItems
+		
+		XCTAssertNotNil(genericItems)
+		XCTAssertEqual(genericItems?[0].value, "value0")
+		XCTAssertEqual(genericItems?[1].value, "value1")
+	}
+	
 	func testImmutableMappable() {
 		let mapper = Mapper<Immutable>()
 		let JSON = ["prop1": "Immutable!", "prop2": 255, "prop3": true ]
